@@ -1,14 +1,13 @@
-import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
-import './index.css';
-import '../styles/css/style.css';
-import '../styles/css/bootstrap.min.css';
-import '../styles/css/font-awesome.min.css';
-import '../styles/css/responsive.css';
+import React from 'react';
+import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
+import { BrowserRouter } from 'react-router-dom';
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-)
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </React.StrictMode>
+);
