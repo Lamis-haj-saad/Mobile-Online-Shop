@@ -149,7 +149,7 @@ z-index: 999;}
 }
 
 .mainmenu-area ul.navbar-nav li:hover a, .mainmenu-area ul.navbar-nav li a.router-link-exact-active {background: #5a88ca; color:#FFF;}
-.mainmenu-area .nav > li > a:focus {color: #FFF;}
+.mainmenu-area .nav > li > a:focus {color: #fff;}
 
 .slider-area { width:80%; position:relative; margin:0 auto; padding:5px;}
 /*-------------------------
@@ -677,6 +677,11 @@ width: 10px;
 
 .copyright > p {
   margin: 10px 0 0;
+}
+
+.navactive {
+    color: #fff;
+    background-color: #5a88ca;
 }
 
 .product-big-title-area {background: url(../img/crossword.png) repeat scroll 0 0 #5a88ca}

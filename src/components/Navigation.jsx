@@ -1,21 +1,21 @@
-import { Link } from "react-router-dom"
+import { NavLink } from "react-router-dom"
 export default function Navigation(){
     return(
         <div className="mainmenu-area">
-                <div className="container">
-                    <div className="row">
-                        <div className="navbar">
-                            <ul className="nav navbar-nav navbar-expand">
-                                <li className="active"><Link to="/home">Home</Link></li>
-                                <li><Link to="/shop/samsung">Samsung</Link></li>
-                                <li><Link to="/shop/apple">Apple</Link></li>
-                                <li><Link to="/shop/lg">LG</Link></li>
-                                <li><Link to="/shop/sony">Sony</Link></li>
-                                <li><Link to="/shop/huawei">Huawei</Link></li>
-                            </ul>
-                        </div>
+            <div className="container">
+                <div className="row">
+                    <div className="navbar">
+                        <ul className="nav navbar-nav navbar-expand">
+                            <li><NavLink to="/" className={({ isActive }) => isActive ? "navactive" : ""} end>Home</NavLink></li>
+                            <li><NavLink to="shop" className={({ isActive }) => isActive ? "navactive" : ""}>Samsung</NavLink></li>
+                            <li><NavLink to="shop/s" className={({ isActive }) => isActive ? "navactive" : ""}>Apple</NavLink></li>
+                            <li><NavLink to="shop/s" className={({ isActive }) => isActive ? "navactive" : ""}>LG</NavLink></li>
+                            <li><NavLink to="shop/s" className={({ isActive }) => isActive ? "navactive" : ""}>Sony</NavLink></li>
+                            <li><NavLink to="shop/s" className={({ isActive }) => isActive ? "navactive" : ""}>Huawei</NavLink></li>
+                        </ul>
                     </div>
                 </div>
             </div>
+        </div>
     )
 }

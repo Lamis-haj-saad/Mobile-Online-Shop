@@ -6,14 +6,11 @@ export default function Shop(){
     return(
         
      <div>
-     <div className="product-big-title-area">
-         <ProductTitle>Samsung</ProductTitle>
-     </div>
+     <ProductTitle>Samsung</ProductTitle>
       <div className="single-product-area">
         <div className="zigzag-bottom"></div>
         <div className="container">
          <div className="row">
-
             <ShopProduct image="img/product-2.jpg" price="$999.00" reducedPrice="$899.00">Apple new mac book 2015 March </ShopProduct>
             <ShopProduct image="img/product-2.jpg" price="$999.00" reducedPrice="$899.00">Apple new mac book 2015 March :P</ShopProduct>
             <ShopProduct image="img/product-2.jpg" price="$999.00" reducedPrice="$899.00">Apple new mac book 2015 March :P</ShopProduct>
@@ -28,7 +25,6 @@ export default function Shop(){
             <ShopProduct image="img/product-2.jpg" price="$999.00" reducedPrice="$899.00">Apple new mac book 2015 March :P</ShopProduct>
             <ShopProduct image="img/product-2.jpg" price="$999.00" reducedPrice="$899.00">Apple new mac book 2015 March :P</ShopProduct>
             <ShopProduct image="img/product-2.jpg" price="$999.00" reducedPrice="$899.00">Apple new mac book 2015 March :P</ShopProduct>
-            
          </div>
          <ProductNavigation/>
      </div>

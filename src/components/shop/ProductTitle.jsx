@@ -1,5 +1,6 @@
 export default function ProductTitle({children}) {
     return(
+        <div className="product-big-title-area">
         <div className="container">
          <div className="row">
              <div className="col-md-12">
@@ -9,5 +10,8 @@ export default function ProductTitle({children}) {
              </div>
          </div>
      </div>
+     </div>
+
+     
     )
 }
