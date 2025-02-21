@@ -19,7 +19,16 @@ const router = createBrowserRouter([
     element: <Root />, 
     children: [
       { path: '', element: <Home /> }, 
-      { path: 'home', element: <Home /> },
+      { path: 'home', 
+        element: <Home />,
+        loader : async () => {
+          const response = await fetch("http://localhost:3000/products");
+          if (!response.ok) {
+            throw new Error("Failed to fetch products");
+          }
+          return response.json();
+        }
+      },
       { path: 'cart', element: <Cart /> },
       { path: 'checkout', element: <Checkout /> },
       { path: 'product', element: <Product /> },
