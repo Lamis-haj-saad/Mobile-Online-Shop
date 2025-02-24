@@ -3,38 +3,38 @@ import { RouterProvider } from 'react-router-dom';
 import Home from './pages/Home.jsx';
 import Cart from './pages/Cart.jsx';
 import Checkout from './pages/Checkout.jsx';
-import Product from './pages/ProductPage.jsx';
 import Shop from './pages/Shop.jsx';
 
-//import './index.css';
+import "bootstrap/dist/css/bootstrap.min.css";
+
 import './assets/css/style.css';
 import './assets/css/bootstrap.min.css';
 import './assets/css/font-awesome.min.css';
 import './assets/css/responsive.css';
 import Root from './pages/Root.jsx';
-
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <Root />, 
-    children: [
-      { path: '', element: <Home /> }, 
-      { path: 'home', 
-        element: <Home />,
-        loader : async () => {
-          const response = await fetch("http://localhost:3000/products");
-          if (!response.ok) {
-            throw new Error("Failed to fetch products");
-          }
-          return response.json();
-        }
-      },
-      { path: 'cart', element: <Cart /> },
-      { path: 'checkout', element: <Checkout /> },
-      { path: 'product', element: <Product /> },
-      { path: 'shop', element: <Shop /> },
-    ],
-  },
+import ProductPage from './pages/ProductPage.jsx';
+import TopNewPage from './pages/TopNew.jsx';
+import TopSellerPage from './pages/TopSellerPage.jsx';
+import SearchPage from './pages/SearchPage.jsx';
+import RecentlyViewedPage from './pages/RecentlyViewedPage.jsx';
+import CartPage from './components/cart/CartPage.jsx';
+const router = createBrowserRouter([  
+  {  
+    path: '/',  
+    element: <Root />,  
+    children: [  
+      { path: '', element: <Home /> },  
+      { path: 'home', element: <Home /> },  
+      { path: 'cart', element: <CartPage /> },  
+      { path: 'checkout', element: <Checkout /> },  
+      { path: 'shop/:id', element: <Shop />}, 
+      { path: 'productpage/:id', element: <ProductPage /> },
+      { path: 'topnew', element: <TopNewPage /> },
+      { path: 'topseller', element: <TopSellerPage /> },
+      { path: 'searchpage', element: <SearchPage/> },
+      { path: 'recentlyviewedpage', element: <RecentlyViewedPage/>}
+    ]  
+  }  
 ]);
 
 export default function App() {

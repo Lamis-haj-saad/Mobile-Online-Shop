@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { Link } from "react-router-dom";
-import HomeProduct from "../home/HomeProduct";
+import ShopProduct from "../components/shop/ShopProduct";
+import ProductTitle from "../components/shop/ProductTitle";
 
-export default function RecentlyViewed() {
+export default function RecentlyViewedPage() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -27,12 +28,17 @@ export default function RecentlyViewed() {
 
   return (
     <div>
-      <h3>Recently Viewed</h3>
-      <ul>
-      {products.slice(0, 3).map((product) => ( // Show only the first 3
-          <HomeProduct key={product.id} product={product} />
-        ))}
-      </ul>
+     <ProductTitle>Recently Viewed Products</ProductTitle>
+     <div className="single-product-area">  
+          <div className="zigzag-bottom"></div>  
+          <div className="container">  
+               <div className="row">  
+               {products.map((product) => (
+               <ShopProduct key={product.id} product={product}/>
+               ))}  
+               </div>  
+          </div>  
+     </div>  
     </div>
   );
 }

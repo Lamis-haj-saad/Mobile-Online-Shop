@@ -1,8 +1,26 @@
-export default function Search (){
-    return(
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+export default function Search() {
+    const [query, setQuery] = useState("");
+    const navigate = useNavigate();
+
+    const handleSearch = () => {
+        if (query.trim()) {
+            navigate(`/searchpage?search=${query}`);
+        }
+    };
+
+    return (
         <div className="col-sm-4">
-            <input type="text" style={{ marginTop: '30px' }} placeholder="Search products..." />
-            <input type="button" value="Search" />
+            <input
+                type="text"
+                style={{ marginTop: "30px" }}
+                placeholder="Search products..."
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+            />
+            <input type="button" value="Search" onClick={handleSearch} />
         </div>
-    )
+    );
 }

@@ -1,3 +1,5 @@
+import img1 from '../../assets/img/product-2.jpg';
+import img2 from '../../assets/img/product-4.jpg';
 export default function Interests(){
     return(
         <div className="cross-sells">
@@ -5,7 +7,7 @@ export default function Interests(){
             <ul className="products">
                 <li className="product">
                     <a href="single-product.html">
-                        <img width="325" height="325" alt="T_4_front" className="attachment-shop_catalog wp-post-image" src="img/product-2.jpg"/>
+                        <img width="325" height="325" alt="T_4_front" className="attachment-shop_catalog wp-post-image" src={img1}/>
                         <h3>Ship Your Idea</h3>
                         <span className="price"><span className="amount">20.00 €</span></span>
                     </a>
@@ -13,7 +15,7 @@ export default function Interests(){
                 </li>
                 <li className="product">
                     <a href="single-product.html">
-                        <img width="325" height="325" alt="T_4_front" className="attachment-shop_catalog wp-post-image" src="img/product-4.jpg"/>
+                        <img width="325" height="325" alt="T_4_front" className="attachment-shop_catalog wp-post-image" src={img2}/>
                         <h3>Ship Your Idea</h3>
                         <span className="price"><span className="amount">20.00 €</span></span>
                     </a>

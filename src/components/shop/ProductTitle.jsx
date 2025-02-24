@@ -1,3 +1,4 @@
+
 export default function ProductTitle({children}) {
     return(
         <div className="product-big-title-area">

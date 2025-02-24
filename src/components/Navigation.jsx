@@ -1,5 +1,26 @@
-import { NavLink } from "react-router-dom"
+import { NavLink } from "react-router-dom";
+import { useState, useEffect } from "react";
+
+
 export default function Navigation(){
+    const [categories, setCategory] = useState([]);
+
+  useEffect(() => {
+
+    const fetchCategory = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/categories");
+        if (!response.ok) throw new Error("Failed to fetch categories");
+        const data = await response.json();
+        setCategory(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchCategory();
+  }, []);
+
     return(
         <div className="mainmenu-area">
             <div className="container">
@@ -7,12 +28,17 @@ export default function Navigation(){
                     <div className="navbar">
                         <ul className="nav navbar-nav navbar-expand">
                             <li><NavLink to="/" className={({ isActive }) => isActive ? "navactive" : ""} end>Home</NavLink></li>
-                            <li><NavLink to="shop" className={({ isActive }) => isActive ? "navactive" : ""}>Samsung</NavLink></li>
-                            <li><NavLink to="shop/s" className={({ isActive }) => isActive ? "navactive" : ""}>Apple</NavLink></li>
-                            <li><NavLink to="shop/s" className={({ isActive }) => isActive ? "navactive" : ""}>LG</NavLink></li>
-                            <li><NavLink to="shop/s" className={({ isActive }) => isActive ? "navactive" : ""}>Sony</NavLink></li>
-                            <li><NavLink to="shop/s" className={({ isActive }) => isActive ? "navactive" : ""}>Huawei</NavLink></li>
-                        </ul>
+                            {categories.map((category) => (  
+                            <li key={category.name}>  
+                            <NavLink  
+                            to={`shop/${category.productListId}`}  
+                            state={{ categoryName: category.name }}   
+                            className={({ isActive }) => (isActive ? "navactive" : "")}  
+                            >  
+                            {category.name}  
+                            </NavLink>  
+                            </li>  ))}
+                            </ul>
                     </div>
                 </div>
             </div>

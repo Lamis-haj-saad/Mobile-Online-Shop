@@ -1,6 +1,6 @@
 import Logo from "./Logo";
 import Search from "./Search";
-import ShoppingCart from "./ShoppingCart";
+import Cart from "./ShoppingCart";
 
 export default function Header() {
     return (
@@ -10,7 +10,7 @@ export default function Header() {
                     <div className="row">
                         <Logo/>
                         <Search/>
-                        <ShoppingCart/>    
+                        <Cart/>    
                     </div>
                 </div>
             </div>

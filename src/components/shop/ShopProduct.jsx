@@ -1,16 +1,24 @@
-export default function ShopProduct({children, image, price, reducedPrice}){
+import { Link } from "react-router-dom";
+import { useDiscount } from "../../store";
+import AddToCartButton from "../cart/AddToCartButton";
+
+export default function ShopProduct({product}){
+    const brandName = product.name.split(' ')[0]; 
+
     return(
         <div className="col-md-3 col-sm-6">
             <div className="single-shop-product">
                 <div className="product-upper">
-                    <img src={image} alt=""/>
+                    <Link to={`/productpage/${product.id}`}>  
+                    <img src={`../../../produts-img/${brandName}/${product.imageName}`} alt=""/>  
+                </Link>
                 </div>
-                <h2><a href="product.html">{children}</a></h2>
+                <h2><Link to = {`/productpage/${product.id}`} >{product.name}</Link></h2>
                 <div className="product-carousel-price">
-                    <ins>{reducedPrice}</ins> <del>{price}</del>
+                    <ins>{useDiscount(product.price,product.discountRate)}</ins> <del>{product.price}</del>
                 </div>  
                 <div className="product-option-shop">
-                    <a className="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="70" rel="nofollow" href="/canvas/shop/?add-to-cart=70">Add to cart</a>
+                    <AddToCartButton product={product}/>
                 </div>                       
             </div>
         </div>
