@@ -1,35 +1,22 @@
 import useDiscount from "../../store.jsx";
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { incrementQty, setTotalPrice, decrementQty } from "../redux/CartSlice.js";
 
-const CartDetails = ({ handleAddToCart }) => {
+import { useDispatch } from "react-redux";
+
+export default function CartDetails() {
+
   const dispatch = useDispatch();
-
-  // Example product structure
-  const product = {
-    id: 5029,
-    name: 'sony xperia xz3',
-    imageName: 'sony-xperia-xz3-.jpg',
-    price: 725,
-    qty: 1,
-  };
-
-  return (
-    <div className="product-details">
-      <h3>{product.name}</h3>
-      <img src={product.imageName} alt={product.name} />
-      <p>Price: ${product.price}</p>
-      <button onClick={() => handleAddToCart(product)}>Add to Cart</button>
-    </div>
-  );
-};
-
-export default CartDetails;
-/*
-
-export default function CartDetails({ cart = [] }) {
-  // Assuming the first cart in the list is the active cart.
-  const products = cart.length > 0 ? cart[0].items : [];
+  function handleAddProdcut(id, price){
+    dispatch(incrementQty({id, price}))
+  }
+  function handleRemoveProdcut(id, price){
+    dispatch(decrementQty({id, price}))
+  }
+  //const products = cart.length > 0 ? cart[0].items : [];
+  const products = useSelector((state) => state.cart.items); 
 
   return (
     <table cellSpacing="0" className="shop_table cart">
@@ -63,7 +50,7 @@ export default function CartDetails({ cart = [] }) {
                     height="145"
                     alt={product.name}
                     className="shop_thumbnail"
-                    src={`img/${product.imageName}`}
+                    src={`../../../produts-img/${product.imageName}`} 
                   />
                 </a>
               </td>
@@ -72,12 +59,12 @@ export default function CartDetails({ cart = [] }) {
               </td>
               <td className="product-price">
                 <span className="amount">
-                  {useDiscount(product.price, 0).toFixed(2)}€ {/* Assuming no discount for simplicity *//*}
+                  {product.price}€ 
                 </span>
               </td>
               <td className="product-quantity">
                 <div className="quantity buttons_added">
-                  <button className="minus">-</button>
+                  <button className="minus" onClick={handleRemoveProdcut(product.id,product.price)}>-</button>
                   <input
                     type="number"
                     size="4"
@@ -88,12 +75,12 @@ export default function CartDetails({ cart = [] }) {
                     step="1"
                     readOnly
                   />
-                  <button className="plus">+</button>
+                  <button className="plus" onClick={handleAddProdcut(product.id,product.price)}>+</button>
                 </div>
               </td>
               <td className="product-subtotal">
                 <span className="amount">
-                  {(useDiscount(product.price, 0) * product.qty).toFixed(2)} €
+                  {(product.price * product.qty).toFixed(2)} €
                 </span>
               </td>
             </tr>
@@ -101,16 +88,17 @@ export default function CartDetails({ cart = [] }) {
         )}
         <tr>
           <td className="actions" colSpan="6">
+            <Link to = 'checkout' >
             <input
               type="button"
-              onClick={() => (window.location.href = "checkout.html")}
+              onClick={() => (window.location.href = "checkout")}
               value="Checkout"
               className="checkout-button button alt wc-forward"
             />
+            </Link>
           </td>
         </tr>
       </tbody>
     </table>
   );
 }
-*/

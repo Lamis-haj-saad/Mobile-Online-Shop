@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import useCart from "../cart/useCart";
+import { useSelector } from "react-redux";
 
 export default function ShoppingCart() {
+  const totalPrice = useSelector((state) => state.cart.totalPrice);
+  const total = useSelector((state) => state.cart.total);
   const cartId = useCart();
   const [cart, setCart] = useState([]);
 
@@ -25,9 +28,9 @@ export default function ShoppingCart() {
   return (
     <div className="col-sm-4">
         <div className="shopping-item">
-            <Link to="/cart">Cart :   <span className="cart-amunt">{cart.subTotal} €</span>
+            <Link to="/cart">Cart :   <span className="cart-amunt">{totalPrice} €</span>
             <i className="fa fa-shopping-cart"></i> 
-            <span className="product-count">{cart.length}</span></Link>
+            <span className="product-count">{total}</span></Link>
         </div>
     </div>
   );
