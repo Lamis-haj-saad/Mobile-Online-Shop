@@ -10,11 +10,11 @@ export default function HomeProduct({ product }) {
 
   return (
     <div className="single-wid-product">
-      <Link to={`productPage:${product.id}`}>
+      <Link to={`productPage/${product.id}`}>
         <img src={`../../produts-img/${brandName}/${product.imageName}`} alt="" className="product-thumb" />
       </Link>
       <h2>
-        <a href="single-product.html">{product.name || "Unnamed Product"}</a>
+        <Link to={`productPage/${product.id}`}>{product.name || "Unnamed Product"}</Link>
       </h2>
       <div className="product-wid-rating">
       {Array.from({ length: product.review }).map((_, index) => (  

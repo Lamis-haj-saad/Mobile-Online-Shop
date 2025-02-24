@@ -1,40 +1,16 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../redux/CartSlice";
 
 export default function AddToCartButton({ product }) {
-  const [quantity, setQuantity] = useState(1);
+  const dispatch = useDispatch();
+  const userId = useSelector((state) => state.cart.userId);
 
   // Function to handle add to cart
   const handleAddToCart = async () => {
-    // Assuming cartId is stored in localStorage or retrieved from state
-    const cartId = localStorage.getItem("cartId");
-
-    if (!cartId) {
-      console.error("Cart ID is missing!");
-      return;
-    }
-
-    const cartItem = {
-      productId: product.id,
-      quantity: quantity,
-    };
-
-    try {
-      const response = await fetch(`http://localhost:3000/carts/e364b282-6460-4665-bfc8-1c5bb68f18ff/items`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(cartItem),
-      });
-
-      if (!response.ok) {
-        throw new Error("Error adding product to cart");
-      }
-
-      console.log("Product added to cart successfully!");
-    } catch (error) {
-      console.error("Error adding product to cart:", error);
-    }
+    if (!userId) return; // Ensure userId exists  
+      dispatch(addToCart({ userId, productId: product.id }));
+      console.log(`Added product ${product.id} to cart for user ${userId}`);
   };
 
   return <button className="add_to_cart_button" type="button" onClick={handleAddToCart}>Add to Cart</button>;

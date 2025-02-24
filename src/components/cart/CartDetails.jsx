@@ -1,4 +1,31 @@
 import useDiscount from "../../store.jsx";
+import React from 'react';
+import { useDispatch } from 'react-redux';
+
+const CartDetails = ({ handleAddToCart }) => {
+  const dispatch = useDispatch();
+
+  // Example product structure
+  const product = {
+    id: 5029,
+    name: 'sony xperia xz3',
+    imageName: 'sony-xperia-xz3-.jpg',
+    price: 725,
+    qty: 1,
+  };
+
+  return (
+    <div className="product-details">
+      <h3>{product.name}</h3>
+      <img src={product.imageName} alt={product.name} />
+      <p>Price: ${product.price}</p>
+      <button onClick={() => handleAddToCart(product)}>Add to Cart</button>
+    </div>
+  );
+};
+
+export default CartDetails;
+/*
 
 export default function CartDetails({ cart = [] }) {
   // Assuming the first cart in the list is the active cart.
@@ -45,7 +72,7 @@ export default function CartDetails({ cart = [] }) {
               </td>
               <td className="product-price">
                 <span className="amount">
-                  {useDiscount(product.price, 0).toFixed(2)}€ {/* Assuming no discount for simplicity */}
+                  {useDiscount(product.price, 0).toFixed(2)}€ {/* Assuming no discount for simplicity *//*}
                 </span>
               </td>
               <td className="product-quantity">
@@ -86,3 +113,4 @@ export default function CartDetails({ cart = [] }) {
     </table>
   );
 }
+*/

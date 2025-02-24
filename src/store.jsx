@@ -1,7 +1,6 @@
-import { useMemo } from "react";
-
-import { configureStore } from '@reduxjs/toolkit';  
-import productReducer from './productSlice';  
+import { useMemo } from "react";  
+import { configureStore } from "@reduxjs/toolkit";
+import cartReducer from './components/redux/CartSlice.js';
 
 export function useDiscount(price, discountRate) {
   return useMemo(() => {
@@ -12,20 +11,19 @@ export function useDiscount(price, discountRate) {
 }
 
 export function useStar(review) {
-     const filledStars = Math.round(review || 0);
-     return (
-       <>
-         {[...Array(5)].map((_, index) => (
-           <i key={index} className={`fa fa-star ${index < filledStars ? "filled" : ""}`}></i>
-         ))}
-       </>
-     );
-   }
-   
+  const filledStars = Math.round(review || 0);
+  return (
+    <>
+      {[...Array(5)].map((_, index) => (
+        <i key={index} className={`fa fa-star ${index < filledStars ? "filled" : ""}`}></i>
+      ))}
+    </>
+  );
+}
 
 const store = configureStore({  
   reducer: {  
-    products: productReducer,  
+    cart : cartReducer,
   },  
 });  
 
