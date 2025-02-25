@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';  
 import CartDetails from "../components/cart/CartDetails";
 import Interests from '../components/cart/Interests';  
 import CartTotals from '../components/cart/CartTotals';  
@@ -8,7 +7,6 @@ export default function Cart(){
     const cartItems = useSelector((state) => state.cart.cartItems);
     return(
         <>
-
         <div className="single-product-area">
         <div className="zigzag-bottom"></div>
         <div className="container">
@@ -17,10 +15,9 @@ export default function Cart(){
                     <div className="product-content-right">
                         <div className="woocommerce">
                             <CartDetails />
-                        <div className="cart-collaterals">
-                        
-                        <Interests/>
-                        <CartTotals/>
+                            <div className="cart-collaterals">
+                            <Interests/>
+                            <CartTotals/>
                             </div>
                         </div>                        
                     </div>                    

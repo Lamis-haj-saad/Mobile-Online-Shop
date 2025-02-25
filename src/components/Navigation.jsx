@@ -1,9 +1,10 @@
 import { NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
-
-export default function Navigation(){
-    const [categories, setCategory] = useState([]);
+export default function Navigation() {
+  const [categories, setCategory] = useState([]);
+  const location = useLocation();
 
   useEffect(() => {
 
@@ -21,27 +22,35 @@ export default function Navigation(){
     fetchCategory();
   }, []);
 
-    return(
-        <div className="mainmenu-area">
-            <div className="container">
-                <div className="row">
-                    <div className="navbar">
-                        <ul className="nav navbar-nav navbar-expand">
-                            <li><NavLink to="/" className={({ isActive }) => isActive ? "navactive" : ""} end>Home</NavLink></li>
-                            {categories.map((category) => (  
-                            <li key={category.name}>  
-                            <NavLink  
-                            to={`shop/${category.productListId}`}  
-                            state={{ categoryName: category.name }}   
-                            className={({ isActive }) => (isActive ? "navactive" : "")}  
-                            >  
-                            {category.name}  
-                            </NavLink>  
-                            </li>  ))}
-                            </ul>
-                    </div>
-                </div>
+  const hidePage = location.pathname === "/cart" || location.pathname === "/checkout";
+
+  if (hidePage) {
+    return null; // Don't render Navigation if we're on the cart page
+  }
+
+  return (
+    <>
+      <div className="mainmenu-area">
+        <div className="container">
+          <div className="row">
+            <div className="navbar">
+              <ul className="nav navbar-nav navbar-expand">
+                <li><NavLink to="/" className={({ isActive }) => isActive ? "navactive" : ""} end>Home</NavLink></li>
+                {categories.map((category) => (
+                  <li key={category.name}>
+                    <NavLink
+                      to={`shop/${category.productListId}`}
+                      state={{ categoryName: category.name }}
+                      className={({ isActive }) => (isActive ? "navactive" : "")}
+                    >
+                      {category.name}
+                    </NavLink>
+                  </li>))}
+              </ul>
             </div>
+          </div>
         </div>
-    )
+      </div>
+    </>
+  )
 }

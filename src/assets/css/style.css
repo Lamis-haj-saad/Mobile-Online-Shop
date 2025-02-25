@@ -1,5 +1,14 @@
 .floatleft { float: left }
 .floatright { float: right }
+.input-error {
+    border: 1px solid red;
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 12px;
+  }
+  
 .alignleft {
     float: left;
     margin-right: 15px;

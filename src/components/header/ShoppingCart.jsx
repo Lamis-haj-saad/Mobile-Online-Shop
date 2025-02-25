@@ -11,7 +11,6 @@ export default function ShoppingCart() {
 
   useEffect(() => {
     if (!cartId) return;
-
     const fetchCart = async () => {
       try {
         const response = await fetch(`http://localhost:3000/carts/${cartId}`);
@@ -21,17 +20,16 @@ export default function ShoppingCart() {
         console.error("Error fetching cart:", error);
       }
     };
-
     fetchCart();
   }, [cartId]);
 
   return (
     <div className="col-sm-4">
-        <div className="shopping-item">
-            <Link to="/cart">Cart :   <span className="cart-amunt">{totalPrice} €</span>
-            <i className="fa fa-shopping-cart"></i> 
-            <span className="product-count">{total}</span></Link>
-        </div>
+      <div className="shopping-item">
+        <Link to="/cart">Cart : <span className="cart-amunt">{totalPrice.toFixed(2)} €</span>
+        <i className="fa fa-shopping-cart"></i> 
+        <span className="product-count">{total}</span></Link>
+      </div>
     </div>
   );
 }

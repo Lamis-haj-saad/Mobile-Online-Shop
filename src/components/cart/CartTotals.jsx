@@ -14,11 +14,11 @@ export default function CartTotals(){
                     </tr>
                     <tr className="shipping">
                         <th>Taxe (20%)</th>
-                        <td>{totalPrice * 0.2} €</td>
+                        <td>{(totalPrice * 0.2).toFixed(2)} €</td>
                     </tr>
                     <tr className="order-total">
                         <th>Order Total</th>
-                        <td><strong><span className="amount">{totalPrice * 1.2} €</span></strong> </td>
+                        <td><strong><span className="amount">{(totalPrice * 1.2).toFixed(2)} €</span></strong> </td>
                     </tr>
                 </tbody>
             </table>

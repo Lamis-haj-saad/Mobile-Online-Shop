@@ -1,19 +1,18 @@
-import useDiscount from "../../store.jsx";
 import React from 'react';
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { incrementQty, setTotalPrice, decrementQty } from "../redux/CartSlice.js";
-
+import { incrementQty, decrementQty } from "../redux/CartSlice.js";
+import { deleteProduct } from "../redux/CartSlice.js";
 import { useDispatch } from "react-redux";
 
 export default function CartDetails() {
 
   const dispatch = useDispatch();
   function handleAddProdcut(id, price){
-    dispatch(incrementQty({id, price}))
+    dispatch(incrementQty({id, price}));
   }
   function handleRemoveProdcut(id, price){
-    dispatch(decrementQty({id, price}))
+    dispatch(decrementQty({id, price}));
   }
   //const products = cart.length > 0 ? cart[0].items : [];
   const products = useSelector((state) => state.cart.items); 
@@ -39,7 +38,9 @@ export default function CartDetails() {
           products.map((product) => (
             <tr key={product.id} className="cart_item">
               <td className="product-remove">
-                <a title="Remove this item" className="remove" href="#">
+                <a title="Remove this item" className="remove" href="#" 
+                onClick={() => dispatch(deleteProduct(product.id))}
+                >
                   ×
                 </a>
               </td>
@@ -64,7 +65,9 @@ export default function CartDetails() {
               </td>
               <td className="product-quantity">
                 <div className="quantity buttons_added">
-                  <button className="minus" onClick={handleRemoveProdcut(product.id,product.price)}>-</button>
+                  <button className="minus" 
+                  onClick={() => handleRemoveProdcut(product.id, product.price)}
+                  >-</button>
                   <input
                     type="number"
                     size="4"
@@ -75,7 +78,9 @@ export default function CartDetails() {
                     step="1"
                     readOnly
                   />
-                  <button className="plus" onClick={handleAddProdcut(product.id,product.price)}>+</button>
+                  <button className="plus" 
+                  onClick={() => handleAddProdcut(product.id, product.price)}
+                  >+</button>
                 </div>
               </td>
               <td className="product-subtotal">
@@ -88,10 +93,9 @@ export default function CartDetails() {
         )}
         <tr>
           <td className="actions" colSpan="6">
-            <Link to = 'checkout' >
+            <Link to = '/checkout' >
             <input
               type="button"
-              onClick={() => (window.location.href = "checkout")}
               value="Checkout"
               className="checkout-button button alt wc-forward"
             />
