@@ -13,6 +13,11 @@ import { useForm, FormProvider } from "react-hook-form";
 export default function Checkout() {
   const dispatch = useDispatch();
   const methods = useForm();
+  const [isChecked, setIsChecked] = useState(false);
+  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm();
+  const [apiError, setApiError] = useState(null);
+
+/*
   const [formData, setFormData] = useState({
     billing: {},
     shipping: {},
@@ -25,9 +30,30 @@ export default function Checkout() {
     total: 0,
     subTotal: 0,
     tax: 0,
-  });
+  });*/
 
-  const handleSubmit = async () => {
+ const onSubmit = async () => {
+  setApiError(null); 
+    if (isChecked) {
+      // Include shipping details in the form data when the checkbox is checked
+      setFormData({
+        ...formData,
+        shipping: formData.shipping,
+      });
+    } else {
+      // Do not include shipping details if the checkbox is not checked
+      setFormData({
+        ...formData,
+        shipping: {}, // Or whatever default you want
+      });
+    }
+    /*
+  const dataToSubmit = isChecked
+    ? formData // Include full formData with shipping
+    : {
+      ...formData,
+      shipping: {}, // Exclude shipping details when checkbox is unchecked
+    };*/
     try {
       const response = await fetch("http://localhost:3000/orders", {
         method: "POST",
@@ -54,20 +80,20 @@ export default function Checkout() {
               <div className="product-content-right">
                 <div className="woocommerce">
                   <form encType="multipart/form-data" action="#" className="checkout" method="post" name="checkout">
-                    <div id="customer_details" className="col2-set">
-                      <FormProvider {...methods}>
+                    <FormProvider {...methods}>
+                      <div id="customer_details" className="col2-set">
                         <BillingDetails setFormData={setFormData} formData={formData} />
-                        <ShippingDetails setFormData={setFormData} formData={formData} />
-                      </FormProvider>
-                    </div>
-                    <h3 id="order_review_heading">Your order</h3>
-                    <div id="order_review" style={{ position: "relative" }}>
-                      <OrderDetails />
-                      <div id="payment">
-                        <Payment setFormData={setFormData} formData={formData} />
-                        <PlaceOrder handleSubmit={handleSubmit} />
+                        <ShippingDetails setFormData={setFormData} formData={formData} setIsChecked={setIsChecked} isChecked={isChecked} />
+                        </div>
+                        <h3 id="order_review_heading">Your order</h3>
+                        <div id="order_review" style={{ position: "relative" }}>
+                        <OrderDetails />
+                        <div id="payment">
+                          <Payment setFormData={setFormData} formData={formData} />
+                          <PlaceOrder/>
+                        </div>
                       </div>
-                    </div>
+                    </FormProvider>
                   </form>
                 </div>
               </div>
