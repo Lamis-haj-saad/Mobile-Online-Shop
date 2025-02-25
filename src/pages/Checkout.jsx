@@ -9,15 +9,12 @@ import { clearCart } from "../components/redux/CartSlice";
 import { useState } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 
-
 export default function Checkout() {
   const dispatch = useDispatch();
-  const methods = useForm();
-  const [isChecked, setIsChecked] = useState(false);
-  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm();
+  const methods = useForm({ mode: "onTouched" });
+  const { handleSubmit, formState: { errors, isSubmitting } } = methods;
   const [apiError, setApiError] = useState(null);
-
-/*
+  const [isChecked, setIsChecked] = useState(false);
   const [formData, setFormData] = useState({
     billing: {},
     shipping: {},
@@ -26,82 +23,77 @@ export default function Checkout() {
       email: "",
       phone: "",
     },
-    items: [], // Add items as per your product details
+    items: [],
     total: 0,
     subTotal: 0,
     tax: 0,
-  });*/
+  });
 
- const onSubmit = async () => {
-  setApiError(null); 
-    if (isChecked) {
-      // Include shipping details in the form data when the checkbox is checked
-      setFormData({
-        ...formData,
-        shipping: formData.shipping,
-      });
-    } else {
-      // Do not include shipping details if the checkbox is not checked
-      setFormData({
-        ...formData,
-        shipping: {}, // Or whatever default you want
-      });
-    }
-    /*
-  const dataToSubmit = isChecked
-    ? formData // Include full formData with shipping
-    : {
+  const onSubmit = async (data) => {
+    setApiError(null);
+    
+    const finalData = {
       ...formData,
-      shipping: {}, // Exclude shipping details when checkbox is unchecked
-    };*/
+      billing: data.billing,
+      shipping: isChecked ? data.shipping : {},
+    };
+
     try {
       const response = await fetch("http://localhost:3000/orders", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(finalData),
       });
-      const data = await response.json();
-      dispatch(clearCart);
-      console.log("Order placed successfully:", data);
+
+      if (!response.ok) {
+        throw new Error("Failed to submit the form. Please try again.");
+      }
+
+      dispatch(clearCart());
+      console.log("Order placed successfully:", await response.json());
     } catch (error) {
       console.error("Error placing order:", error);
+      setApiError(error.message);
     }
   };
+
   return (
     <div>
       <ProductTitle>Checkout</ProductTitle>
       <div className="single-product-area">
-        <div className="zigzag-bottom"></div>
         <div className="container">
           <div className="row">
             <div className="col-md-12">
               <div className="product-content-right">
                 <div className="woocommerce">
-                  <form encType="multipart/form-data" action="#" className="checkout" method="post" name="checkout">
-                    <FormProvider {...methods}>
+                  {apiError && <p className="text-red-500">{apiError}</p>}
+                  <FormProvider {...methods}>
+                    <form onSubmit={handleSubmit(onSubmit)} className="checkout">
                       <div id="customer_details" className="col2-set">
-                        <BillingDetails setFormData={setFormData} formData={formData} />
-                        <ShippingDetails setFormData={setFormData} formData={formData} setIsChecked={setIsChecked} isChecked={isChecked} />
-                        </div>
-                        <h3 id="order_review_heading">Your order</h3>
-                        <div id="order_review" style={{ position: "relative" }}>
+                        <BillingDetails />
+                        <ShippingDetails isChecked={isChecked} setIsChecked={setIsChecked} />
+                      </div>
+                      <h3 id="order_review_heading">Your order</h3>
+                      <div id="order_review">
                         <OrderDetails />
                         <div id="payment">
                           <Payment setFormData={setFormData} formData={formData} />
-                          <PlaceOrder/>
+                          <PlaceOrder />
                         </div>
                       </div>
-                    </FormProvider>
-                  </form>
+                      <button type="submit" className="btn btn-primary w-full" disabled={isSubmitting}>
+                        {isSubmitting ? "Placing Order..." : "Place Order"}
+                      </button>
+                    </form>
+                  </FormProvider>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-
     </div>
-  )
+  );
 }
