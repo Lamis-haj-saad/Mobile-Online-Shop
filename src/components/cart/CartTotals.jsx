@@ -10,7 +10,7 @@ export default function CartTotals(){
                 <tbody>
                     <tr className="cart-subtotal">
                         <th>Cart Subtotal</th>
-                        <td><span className="amount">{totalPrice} €</span></td>
+                        <td><span className="amount">{totalPrice.toFixed(2)} €</span></td>
                     </tr>
                     <tr className="shipping">
                         <th>Taxe (20%)</th>

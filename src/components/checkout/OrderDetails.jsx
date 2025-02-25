@@ -26,7 +26,7 @@ export default function OrderDetails() {
             <tfoot>
                 <tr className="cart-subtotal">
                     <th>Cart Subtotal</th>
-                    <td><span className="amount">{totalPrice} € </span>
+                    <td><span className="amount">{totalPrice.toFixed(2)} € </span>
                     </td>
                 </tr>
                 <tr className="shipping">

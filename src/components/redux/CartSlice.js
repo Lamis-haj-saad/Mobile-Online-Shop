@@ -3,8 +3,8 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   items: [], // Stores cart items
   userId: null, // Stores the user id
-  totalPrice:0,
-  total:0,
+  totalPrice: 0,
+  total: 0,
 };
 
 const cartSlice = createSlice({
@@ -14,12 +14,12 @@ const cartSlice = createSlice({
     addToCart: (state, action) => {
       const product = action.payload;
       const existingProduct = state.items.find(item => item.id === product.id);
-      if (existingProduct){
+      if (existingProduct) {
         existingProduct.qty += 1;
-      }else{
-        state.items.push(action.payload); 
-      }           
-      state.totalPrice += product.price; 
+      } else {
+        state.items.push(action.payload);
+      }
+      state.totalPrice += product.price;
       state.total += 1;
     },
     setUserId: (state, action) => {
@@ -27,21 +27,23 @@ const cartSlice = createSlice({
     },
     clearCart: (state) => {
       state.items = [];
+      state.totalPrice = 0;
+      state.total = 0;
     },
-    setTotalPrice: (state, action) =>{
-      state.totalPrice= state.totalPrice+action.payload;
+    setTotalPrice: (state, action) => {
+      state.totalPrice = state.totalPrice + action.payload;
     },
-    incrementQty: (state, action) =>{
+    incrementQty: (state, action) => {
       const { id, price } = action.payload;
-  
+
       const product = state.items.find(item => item.id === id);
       product.qty += 1;
       state.totalPrice += price; // Update the total price
       state.total += 1; // Increment the total item count
-      },
-    decrementQty: (state, action) =>{
+    },
+    decrementQty: (state, action) => {
       const { id, price } = action.payload;
-  
+
       // Find the product in the cart
       const product = state.items.find(item => item.id === id);
       product.qty -= 1;
@@ -52,7 +54,7 @@ const cartSlice = createSlice({
         state.items = state.items.filter(item => item.id !== id);
       }
     },
-    deleteProduct: (state, action) =>{
+    deleteProduct: (state, action) => {
       const id = action.payload;
       const product = state.items.find(item => item.id === id);
 
