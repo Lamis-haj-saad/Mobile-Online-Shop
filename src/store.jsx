@@ -1,4 +1,4 @@
-import { useMemo } from "react";  
+import { useMemo } from "react"; 
 import { configureStore } from "@reduxjs/toolkit";
 import cartReducer from './components/redux/CartSlice.js';
 
@@ -21,10 +21,35 @@ export function useStar(review) {
   );
 }
 
+const loadStateFromLocalStorage = () => {
+  try {
+    const savedState = localStorage.getItem('reduxState');
+    return savedState ? JSON.parse(savedState) : undefined; // Return undefined if no state is found
+  } catch (error) {
+    console.error('Could not load state', error);
+    return undefined; // Return undefined in case of error
+  }
+};
+
+const saveStateToLocalStorage = (state) => {
+  try {
+    localStorage.setItem('reduxState', JSON.stringify(state));
+  } catch (error) {
+    console.error('Could not save state', error);
+  }
+};
+
 const store = configureStore({  
   reducer: {  
     cart : cartReducer,
   },  
+  preloadedState: loadStateFromLocalStorage(), // Load persisted state into the store
 });  
+
+
+store.subscribe(() => {
+  saveStateToLocalStorage(store.getState());
+});
+
 
 export default store;

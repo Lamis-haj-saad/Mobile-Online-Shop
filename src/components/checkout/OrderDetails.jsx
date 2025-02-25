@@ -13,10 +13,10 @@ export default function OrderDetails() {
                 </tr>
             </thead>
             <tbody>
-                {products.map(product => (
-                    <tr className="cart_item">
+                {products.map((product, index) => (
+                    <tr key={index} className="cart_item">
                         <td className="product-name">
-                            Ship Your Idea <strong className="product-quantity">× {product.qty}</strong></td>
+                        {product.name} <strong className="product-quantity">× {product.qty}</strong></td>
                         <td className="product-total">
                             <span className="amount">{product.price} €</span></td>
                     </tr>
