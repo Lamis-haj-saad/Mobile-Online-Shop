@@ -1140,3 +1140,14 @@ div.cart-collaterals ul.products li.product:hover .add_to_cart_button{background
 .carousel-control-prev:hover, .carousel-control-next:hover {
     background-color: gray;
 }
+.input-error {
+  border: 1px solid #e53e3e !important;
+  background-color: #fff5f5;
+}
+
+.field-error {
+  display: block;
+  color: #e53e3e;
+  font-size: 0.8rem;
+  margin-top: 4px;
+}

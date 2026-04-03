@@ -2,7 +2,6 @@ import Input from "./Input";
 import SelectInput from "./SelectInput";
 import { useState } from "react";
 
-
 export default function ShippingDetails({ setFormData, formData, isChecked, setIsChecked }) {
   //const [isChecked, setIsChecked] = useState(false);
 
@@ -48,43 +47,3 @@ export default function ShippingDetails({ setFormData, formData, isChecked, setI
     </div>
   )
 }
-/**
-import { useFormContext } from "react-hook-form";
-
-export default function ShippingDetails({ isChecked, setIsChecked }) {
-  const {
-    register,
-    formState: { errors },
-  } = useFormContext();
-
-  return (
-    <div>
-      <h3>Shipping Details</h3>
-
-      <label>
-        <input type="checkbox" checked={isChecked} onChange={(e) => setIsChecked(e.target.checked)} />
-        Ship to a different address?
-      </label>
-
-      {isChecked && (
-        <>
-          <label>Address</label>
-          <input
-            {...register("shipping.address", { required: "Address is required" })}
-            className="w-full px-3 py-2 border rounded-lg"
-          />
-          {errors.shipping?.address && <p className="text-red-500">{errors.shipping.address.message}</p>}
-
-          <label>City</label>
-          <input
-            {...register("shipping.city", { required: "City is required" })}
-            className="w-full px-3 py-2 border rounded-lg"
-          />
-          {errors.shipping?.city && <p className="text-red-500">{errors.shipping.city.message}</p>}
-        </>
-      )}
-    </div>
-  );
-}
-
- */

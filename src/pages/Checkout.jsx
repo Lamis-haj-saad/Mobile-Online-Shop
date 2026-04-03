@@ -12,7 +12,7 @@ import { useForm, FormProvider } from "react-hook-form";
 export default function Checkout() {
   const dispatch = useDispatch();
   const methods = useForm({ mode: "onTouched" });
-  const { handleSubmit, formState: { errors, isSubmitting } } = methods;
+  const { handleSubmit, formState: { errors, isSubmitting }, trigger } = methods;
   const [apiError, setApiError] = useState(null);
   const [isChecked, setIsChecked] = useState(false);
   const [formData, setFormData] = useState({
@@ -70,7 +70,12 @@ export default function Checkout() {
                 <div className="woocommerce">
                   {apiError && <p className="text-red-500">{apiError}</p>}
                   <FormProvider {...methods}>
-                    <form onSubmit={handleSubmit(onSubmit)} className="checkout">
+                    {Object.keys(errors).length > 0 && (
+                    <div className="alert alert-danger" role="alert">
+                      ⚠️ Please fill in all required fields before placing your order.
+                    </div>
+                    )}
+                      <form onSubmit={handleSubmit(onSubmit)} className="checkout">
                       <div id="customer_details" className="col2-set">
                         <BillingDetails />
                         <ShippingDetails isChecked={isChecked} setIsChecked={setIsChecked} />
