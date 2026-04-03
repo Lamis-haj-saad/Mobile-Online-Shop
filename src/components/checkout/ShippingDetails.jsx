@@ -3,7 +3,6 @@ import SelectInput from "./SelectInput";
 import { useState } from "react";
 
 export default function ShippingDetails({ setFormData, formData, isChecked, setIsChecked }) {
-  //const [isChecked, setIsChecked] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;

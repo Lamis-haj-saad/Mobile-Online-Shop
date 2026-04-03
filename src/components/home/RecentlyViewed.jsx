@@ -29,7 +29,7 @@ export default function RecentlyViewed() {
     <div className="col-md-4">
       <div className="single-product-widget">
       <h2 className="product-wid-title">Recently Viewed</h2>
-      <Link to="recentlyviewedpage" className="wid-view-more">View All</Link>
+      <a href="recentlyviewedpage" className="wid-view-more">View All</a>
       {products.slice(0, 2).map((product) => ( 
           <HomeProduct key={product.id} product={product} />
         ))}

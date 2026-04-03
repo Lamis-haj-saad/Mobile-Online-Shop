@@ -6,7 +6,7 @@ export default function TopNew({ products }) {
     <div className="col-md-4">
       <div className="single-product-widget">
         <h2 className="product-wid-title">Top New</h2>
-        <Link to="topnew" className="wid-view-more">View All</Link>
+        <a href="topnew" className="wid-view-more">View All</a>
         {products && products.length > 0 ? (
           products.slice(0, 2).map((product, index) => (
             <HomeProduct key={product?.id || index} product={product} />
